@@ -1,23 +1,30 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import { useState, useEffect } from "react";
 
 function App() {
+  const [users, setUsers] = useState([]);
+  const [accounts, setAccounts] = useState([]);
+
+  const fetchUsers = () => {
+    fetch("http://localhost:3000/users")
+      .then((resp) => resp.json())
+      .then((data) => setUsers(data));
+  };
+
+  const fetchAccounts = () => {
+    fetch("http://localhost:3000/accounts")
+      .then((resp) => resp.json())
+      .then((data) => setAccounts(data));
+  };
+
+  useEffect(() => {
+    fetchUsers();
+    fetchAccounts();
+  }, []);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>Welcome to PizzaBank!</h1>
     </div>
   );
 }
